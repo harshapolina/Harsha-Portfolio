@@ -1,0 +1,210 @@
+.falling-text-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  cursor: default;
+  text-align: center;
+  overflow: hidden;
+  pointer-events: none;
+  touch-action: pan-y;
+}
+
+.falling-text-container.is-interactive {
+  pointer-events: auto;
+  cursor: grab;
+  /* allow vertical page scroll; drag still works via Matter mouse */
+  touch-action: pan-y;
+}
+
+.falling-text-container.is-interactive.is-dragging,
+.falling-text-container.is-interactive:active {
+  cursor: grabbing;
+  touch-action: none;
+}
+
+.falling-text-target {
+  display: inline-block;
+  max-width: 100%;
+  padding: 1.25rem 0.75rem 2rem;
+}
+
+.falling-text-target.as-cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 0.75rem 0.85rem;
+  width: 100%;
+  height: 100%;
+  padding: 12% 8% 0;
+}
+
+/* Hide the static flex layout once physics owns positions */
+.falling-text-target.as-cards.is-falling {
+  display: block;
+  padding: 0;
+}
+
+.falling-text-target.as-cards.is-falling .word {
+  margin: 0;
+}
+
+.word {
+  display: inline-block;
+  margin: 0 2px;
+  user-select: none;
+  will-change: transform, left, top;
+}
+
+.falling-text-target.as-cards .word {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.62rem 1.05rem 0.62rem 0.62rem;
+  border-radius: 9999px;
+  font-family: var(--font-syne), sans-serif;
+  font-size: clamp(0.78rem, 1.25vw, 0.98rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.36),
+    0 2px 0 rgba(255, 255, 255, 0.08) inset;
+  border: 1px solid transparent;
+}
+
+.falling-text-target.as-cards .word-mark {
+  display: inline-flex;
+  height: 1.7rem;
+  width: 1.7rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-family: var(--font-syne), sans-serif;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+}
+
+.falling-text-target.as-cards .word-mark--icon {
+  background: rgba(10, 10, 10, 0.06);
+  color: inherit;
+  padding: 0.28rem;
+}
+
+.falling-text-target.as-cards .word-mark--icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.falling-text-target.as-cards .word--ink .word-mark--icon {
+  background: rgba(255, 244, 79, 0.16);
+}
+
+.falling-text-target.as-cards .word--ember .word-mark--icon {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.falling-text-target.as-cards .word--lemon .word-mark--icon {
+  background: rgba(10, 10, 10, 0.1);
+}
+
+.falling-text-target.as-cards .word-label {
+  padding-right: 0.15rem;
+}
+
+.falling-text-target.as-cards .word--lemon {
+  background: var(--lemon);
+  color: var(--ink);
+}
+
+.falling-text-target.as-cards .word--lemon .word-mark {
+  background: rgba(10, 10, 10, 0.12);
+  color: var(--ink);
+}
+
+.falling-text-target.as-cards .word--paper {
+  background: #ffffff;
+  color: var(--ink);
+}
+
+.falling-text-target.as-cards .word--paper .word-mark {
+  background: rgba(10, 10, 10, 0.08);
+  color: var(--ink);
+}
+
+.falling-text-target.as-cards .word--soft {
+  background: #ebe7df;
+  color: var(--ink);
+}
+
+.falling-text-target.as-cards .word--soft .word-mark {
+  background: rgba(10, 10, 10, 0.1);
+  color: var(--ink);
+}
+
+.falling-text-target.as-cards .word--ink {
+  background: #141414;
+  color: #f7f5f2;
+  border-color: rgba(255, 244, 79, 0.32);
+}
+
+.falling-text-target.as-cards .word--ink .word-mark {
+  background: var(--lemon);
+  color: var(--ink);
+}
+
+.falling-text-target.as-cards .word--ember {
+  background: #ff5a1f;
+  color: #fffaf5;
+}
+
+.falling-text-target.as-cards .word--ember .word-mark {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fffaf5;
+}
+
+.highlighted {
+  color: var(--lemon);
+  font-weight: 700;
+}
+
+.falling-text-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .falling-text-target.as-cards {
+    padding: 8% 6% 0;
+    gap: 0.55rem 0.6rem;
+  }
+
+  .falling-text-target.as-cards .word {
+    padding: 0.58rem 0.95rem 0.58rem 0.58rem;
+    font-size: 0.82rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+  }
+
+  .falling-text-target.as-cards .word-mark {
+    height: 1.55rem;
+    width: 1.55rem;
+    font-size: 0.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .falling-text-container {
+    cursor: default;
+  }
+}
