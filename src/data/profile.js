@@ -96,7 +96,6 @@ export const profile = {
       "GitHub",
       "WordPress",
       "Hugging Face",
-      "Gemini API",
     ],
   },
 

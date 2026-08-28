@@ -2,21 +2,15 @@ import { I } from "./stackIcons";
 
 /** Curated set for the falling physics — keeps the stage readable */
 export const fallingStackItems = [
-  { label: "React", icon: I.react, tone: "paper" },
+  { label: "Python", icon: I.python, tone: "paper" },
   { label: "Node.js", icon: I.node, tone: "lemon" },
   { label: "Express.js", icon: I.express, tone: "ember" },
-  { label: "MERN", icon: I.mern, tone: "lemon" },
-  { label: "Next.js", icon: I.nextjs, tone: "paper" },
-  { label: "Python", icon: I.python, tone: "paper" },
+  { label: "React", icon: I.react, tone: "paper" },
   { label: "MongoDB", icon: I.mongodb, tone: "lemon" },
-  { label: "Figma", icon: I.figma, tone: "paper" },
-  { label: "Supabase", icon: I.supabase, tone: "ember" },
-  { label: "AI Automations", icon: I.aiAuto, tone: "ember" },
-  { label: "LangChain", icon: I.langchain, tone: "soft" },
-  { label: "Gemini", icon: I.gemini, tone: "paper" },
+  { label: "C++", icon: I.cpp, tone: "soft" },
+  { label: "Automations", icon: I.zap, tone: "ember" },
+  { label: "Webflow", icon: I.webflow, tone: "soft" },
   { label: "n8n", icon: I.n8n, tone: "lemon" },
-  { label: "Vercel", icon: I.vercel, tone: "soft" },
-  { label: "Cursor", icon: I.cursor, tone: "paper" },
 ];
 
 /** Full toolkit — shown in the organized grid section */
