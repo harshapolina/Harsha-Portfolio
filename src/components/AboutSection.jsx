@@ -182,8 +182,10 @@ export function prepareAboutStage(stage) {
   const cardEls = gsap.utils.toArray(stage.querySelectorAll(".ab-card"));
 
   gsap.set(kickerEl, { opacity: 0, y: 12 });
+  const riseY = window.innerHeight * 0.7;
+  const meX = Math.min(window.innerWidth * 0.7, 560);
   gsap.set(aboutEl, {
-    y: () => window.innerHeight * 0.7,
+    y: riseY,
     scale: 0.92,
     opacity: 1,
     filter: "blur(14px)",
@@ -191,7 +193,7 @@ export function prepareAboutStage(stage) {
   });
   // Park Me off-screen to the right until About has fully landed
   gsap.set(meEl, {
-    x: () => Math.min(window.innerWidth * 0.7, 560),
+    x: meX,
     y: 10,
     scale: 0.9,
     rotate: 4,
@@ -229,6 +231,9 @@ export function appendAboutSequence(tl, stage) {
   const stackWrap = stage.querySelector(".ab-stack-wrap");
   const cardEls = gsap.utils.toArray(stage.querySelectorAll(".ab-card"));
 
+  const riseY = window.innerHeight * 0.7;
+  const meX = Math.min(window.innerWidth * 0.7, 560);
+
   tl.addLabel("about-start");
 
   tl.to(
@@ -241,7 +246,7 @@ export function appendAboutSequence(tl, stage) {
   tl.fromTo(
     aboutEl,
     {
-      y: () => window.innerHeight * 0.7,
+      y: riseY,
       scale: 0.92,
       opacity: 1,
       filter: "blur(14px)",
@@ -267,7 +272,7 @@ export function appendAboutSequence(tl, stage) {
   tl.fromTo(
     meEl,
     {
-      x: () => Math.min(window.innerWidth * 0.7, 560),
+      x: meX,
       y: 10,
       scale: 0.9,
       rotate: 4,

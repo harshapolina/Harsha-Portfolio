@@ -12,6 +12,12 @@ export const I = {
   react: svg(
     `<circle cx="12" cy="12" r="2.2" fill="#61DAFB"/><g fill="none" stroke="#61DAFB" stroke-width="1.4"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></g>`
   ),
+  node: svg(
+    `<path fill="#339933" d="M12 2 3.5 6.8v10.4L12 22l8.5-4.8V6.8L12 2Zm0 2.2 6.3 3.6v7.2L12 18.6l-6.3-3.6V7.8L12 4.2Z"/><text x="12" y="14.2" text-anchor="middle" fill="#fff" font-size="6.5" font-weight="700" font-family="system-ui,sans-serif">JS</text>`
+  ),
+  express: svg(
+    `<rect width="24" height="24" rx="5" fill="#111"/><text x="12" y="15" text-anchor="middle" fill="#fff" font-size="7" font-weight="700" font-family="system-ui,sans-serif">ex</text>`
+  ),
   flutter: svg(
     `<path fill="#54C5F8" d="M14.1 2 3.5 12.6l3.4 3.4L20.9 2z"/><path fill="#01579B" d="m14.1 13.3-3.7 3.7 3.7 3.7H20.9l-3.7-3.7 3.7-3.7z"/><path fill="#29B6F6" d="m10.4 17 3.7-3.7 3.4 3.4-3.4 3.4z"/>`
   ),
@@ -77,5 +83,38 @@ export const I = {
   ),
   mobile: svg(
     `<rect x="7" y="2.5" width="10" height="19" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="18.2" r="1" fill="currentColor"/>`
+  ),
+  photoshop: svg(
+    `<rect width="24" height="24" rx="5" fill="#001E36"/><text x="12" y="15.5" text-anchor="middle" fill="#31A8FF" font-size="8" font-weight="700" font-family="system-ui,sans-serif">Ps</text>`
+  ),
+  mongodb: svg(
+    `<path fill="#47A248" d="M12 2.5c-1.2 3.2-2 6.4-2 9.5 0 2.2.4 4.2 1.2 6.1.8 1.8 1.8 3.2 2.8 4.4V2.5Z"/><path fill="#7CB342" d="M12 2.5c1.2 3.2 2 6.4 2 9.5 0 2.2-.4 4.2-1.2 6.1-.8 1.8-1.8 3.2-2.8 4.4V2.5Z"/>`
+  ),
+  supabase: svg(
+    `<path fill="#3ECF8E" d="M12 3 4 20.5h6.2L12 14l1.8 6.5H20L12 3Z"/>`
+  ),
+  netlify: svg(
+    `<path fill="#00C7B7" d="M12 3 3 21h7.5l1.5-4.5L12 21l4-6.5L17.5 21H21L12 3Z"/>`
+  ),
+  vercel: svg(
+    `<path fill="#fff" d="M12 4 4 20h16L12 4Z"/>`
+  ),
+  cursor: svg(
+    `<rect width="24" height="24" rx="6" fill="#111"/><path fill="#fff" d="M8 7.5 16.5 12 8 16.5V7.5Z"/>`
+  ),
+  framer: svg(
+    `<rect width="24" height="24" rx="6" fill="#0055FF"/><path fill="#fff" d="M8 8h8v8H8V8Zm4 4h4v4h-4v-4Z"/>`
+  ),
+  wix: svg(
+    `<rect width="24" height="24" rx="6" fill="#0C6EFC"/><text x="12" y="15.5" text-anchor="middle" fill="#fff" font-size="7" font-weight="700" font-family="system-ui,sans-serif">Wix</text>`
+  ),
+  nextjs: svg(
+    `<circle cx="12" cy="12" r="10" fill="#111"/><path fill="#fff" d="M7.5 7.5h9L12 16.5V7.5Zm4.5 0V16.5L18 7.5h-6Z"/>`
+  ),
+  aiAuto: svg(
+    `<rect width="24" height="24" rx="6" fill="#111"/><path fill="#fff44f" d="M8 8h8v2H10v4h6v2H8V8Zm2 10h4v2h-4v-2Z"/><circle cx="17" cy="9" r="1.5" fill="#ff5a1f"/>`
+  ),
+  people: svg(
+    `<circle cx="9" cy="9" r="2.5" fill="currentColor"/><circle cx="15.5" cy="9" r="2.5" fill="currentColor"/><path fill="currentColor" d="M5 18.5c.8-2.4 2.4-3.8 4.5-3.8s3.7 1.4 4.5 3.8"/><path fill="currentColor" d="M13.5 18.5c.6-1.8 1.8-2.8 3.5-2.8 1.4 0 2.4.7 3 2.8"/>`
   ),
 };

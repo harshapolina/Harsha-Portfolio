@@ -2,22 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import FallingText from "./FallingText";
-import { I } from "../data/stackIcons";
-
-const stackItems = [
-  { label: "HTML / CSS", icon: I.html, tone: "ember" },
-  { label: "React", icon: I.react, tone: "paper" },
-  { label: "Python", icon: I.python, tone: "paper" },
-  { label: "PHP", icon: I.php, tone: "soft" },
-  { label: "MySQL", icon: I.mysql, tone: "lemon" },
-  { label: "MERN", icon: I.mern, tone: "paper" },
-  { label: "Fast API", icon: I.fastapi, tone: "ember" },
-  { label: "C++", icon: I.cpp, tone: "soft" },
-  { label: "Webflow", icon: I.webflow, tone: "soft" },
-  { label: "N8N", icon: I.n8n, tone: "lemon" },
-  { label: "Automations", icon: I.zap, tone: "paper" },
-  { label: "Networking", icon: I.network, tone: "soft" },
-];
+import { fallingStackItems } from "../data/stack";
 
 export default function WikSection() {
   const sectionRef = useRef(null);
@@ -92,7 +77,7 @@ export default function WikSection() {
         </h2>
         <p className="mt-5 max-w-[19rem] font-body text-sm leading-relaxed text-paper/55 md:mt-6 md:max-w-sm md:text-[0.95rem]">
           Design systems, frontend, backend, and Gen AI — the full stack I ship
-          with. Clean. Functional. No noise.
+          with. Scroll for the full toolkit.
         </p>
       </div>
 
@@ -102,7 +87,7 @@ export default function WikSection() {
       >
         <div className="absolute inset-x-3 top-[5%] bottom-[8%] md:inset-x-0 md:left-[10%] md:right-[2%] md:top-[6%] md:bottom-[8%]">
           <FallingText
-            items={stackItems}
+            items={fallingStackItems}
             asCards
             trigger="auto"
             active={fallActive}

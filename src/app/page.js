@@ -3,6 +3,7 @@
 import TextPressure from "../components/TextPressure";
 import ExperienceStack from "../components/ExperienceStack";
 import WikSection from "../components/WikSection";
+import StackShowcase from "../components/StackShowcase";
 import { AboutSurface } from "../components/AboutSection";
 import { AchievementsSurface } from "../components/AchievementsSection";
 import BrandFooter from "../components/BrandFooter";
@@ -98,6 +99,7 @@ export default function Home() {
         <ExperienceStack
           about={<AboutSurface />}
           wins={<AchievementsSurface />}
+          stack={<StackShowcase />}
         >
           <WikSection />
         </ExperienceStack>

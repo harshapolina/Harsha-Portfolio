@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -26,11 +27,13 @@ export function prepareAchievementsStage(stage) {
   gsap.set(meter, { opacity: 0, y: 16 });
   if (track) gsap.set(track, { x: 0, clearProps: "transform" });
   // Park fully below the viewport — no peek until each card’s scroll beat
+  const riseY = window.innerHeight;
   gsap.set(cards, {
     opacity: 1,
-    y: () => window.innerHeight,
+    y: riseY,
     scale: 1,
     clearProps: "clipPath,webkitClipPath",
+    force3D: true,
   });
   gsap.set(stage.querySelector("[data-ach-progress]"), {
     scaleX: 0,
@@ -56,8 +59,9 @@ export function appendAchievementsSequence(tl, stage, at = ">") {
   const total = Math.max(cards.length, 1);
   const enterDur = 1.45;
   const holdDur = 0.55;
+  const riseY = window.innerHeight;
 
-  // Lock row in place — three cards fill rightward, never shift left
+  // Lock row in place — cards fill rightward, never shift left
   if (track) gsap.set(track, { x: 0 });
 
   tl.addLabel("wins-content", at);
@@ -102,7 +106,7 @@ export function appendAchievementsSequence(tl, stage, at = ">") {
     // Rise from fully below — only this card moves on its scroll beat
     tl.fromTo(
       card,
-      { opacity: 1, y: () => window.innerHeight, scale: 1 },
+      { opacity: 1, y: riseY, scale: 1, force3D: true },
       {
         opacity: 1,
         y: 0,
@@ -110,6 +114,7 @@ export function appendAchievementsSequence(tl, stage, at = ">") {
         duration: enterDur,
         ease: "none",
         immediateRender: false,
+        force3D: true,
       },
       label
     );
@@ -144,7 +149,7 @@ export function appendAchievementsSequence(tl, stage, at = ">") {
       );
     }
 
-    // Beat between cards; after the 3rd is fully up, hold before Contact
+    // Beat between cards; after the last is fully up, hold before Contact
     if (i < cards.length - 1) {
       tl.to({}, { duration: holdDur }, ">");
     } else {
@@ -198,7 +203,7 @@ function AchievementsStage() {
             </h2>
 
             <p className="mt-4 max-w-sm font-body text-sm leading-relaxed text-paper/50 md:mt-5 md:text-[15px]">
-              Startup heat. National AI. A real agency. Three receipts, one
+              Startup heat. National AI. A real agency. Four receipts, one
               story.
             </p>
           </div>
@@ -234,39 +239,52 @@ function AchievementsStage() {
                 key={item.id}
                 className="ach-card relative flex h-[min(48vh,340px)] min-w-0 flex-1 basis-0 flex-col overflow-hidden rounded-[1.75rem] bg-lemon text-ink shadow-[0_28px_70px_rgba(0,0,0,0.32)] will-change-transform md:h-[min(58vh,460px)] md:max-w-[280px]"
               >
-                <div className="flex justify-center px-5 pt-6">
-                  <span className="inline-flex items-center rounded-full border border-ink/25 px-3.5 py-1 font-body text-[10px] uppercase tracking-[0.18em] text-ink/80">
-                    {item.badge}
-                  </span>
+                <div className="shrink-0 px-5 pt-6 md:px-6">
+                  <div className="flex flex-col items-center gap-2.5">
+                    <span className="inline-flex items-center rounded-full border border-ink/25 px-3.5 py-1 font-body text-[10px] uppercase tracking-[0.18em] text-ink/80">
+                      {item.badge}
+                    </span>
+                    <div className="flex h-[26px] w-full items-center justify-center">
+                      {item.pressHref && (
+                        <Link
+                          href={item.pressHref}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-ink/20 px-3 py-1 font-body text-[9px] uppercase tracking-[0.22em] text-ink/60 transition-all hover:border-ink/45 hover:bg-ink hover:text-lemon md:text-[10px]"
+                        >
+                          {item.pressLabel ?? "In the news"}
+                          <span className="text-[10px] opacity-70" aria-hidden>
+                            ↗
+                          </span>
+                        </Link>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="min-h-[20%] flex-1" aria-hidden />
-
-                <div className="relative z-[1] px-5 pb-6 md:px-6 md:pb-7">
-                  <p className="font-body text-[10px] uppercase tracking-[0.22em] text-ink/45">
+                <div className="relative z-[1] flex flex-1 flex-col px-5 pb-6 pt-5 md:px-6 md:pb-7 md:pt-6">
+                  <p className="shrink-0 font-body text-[10px] uppercase tracking-[0.22em] text-ink/45">
                     Achievement {String(i + 1).padStart(2, "0")} · {item.mark}
                   </p>
 
-                  <h3 className="mt-2 font-display text-[1.35rem] font-bold leading-snug tracking-tight md:text-[1.5rem]">
+                  <h3 className="mt-2 shrink-0 min-h-[2.75rem] line-clamp-2 font-display text-[1.35rem] font-bold leading-[1.15] tracking-tight md:min-h-[3rem] md:text-[1.5rem]">
                     {item.title}
                   </h3>
 
-                  <p className="mt-3 font-body text-[13px] leading-relaxed text-ink/65">
+                  <p className="mt-3 shrink-0 min-h-[4rem] line-clamp-3 font-body text-[13px] leading-relaxed text-ink/65 md:min-h-[4.25rem]">
                     {item.line}
                   </p>
 
-                  <div className="mt-4 flex flex-wrap gap-1.5">
+                  <div className="mt-4 flex shrink-0 min-h-[3rem] flex-wrap items-start gap-1.5">
                     {item.chips.map((chip) => (
                       <span
                         key={chip}
-                        className="rounded-full border border-ink/15 px-2.5 py-1 font-body text-[10px] tracking-wide text-ink/70"
+                        className="inline-flex h-[26px] items-center justify-center self-start rounded-full border border-ink/15 px-2.5 font-body text-[10px] leading-none tracking-wide text-ink/70"
                       >
                         {chip}
                       </span>
                     ))}
                   </div>
 
-                  <p className="mt-4 font-body text-[12px] leading-relaxed text-ink/55">
+                  <p className="mt-4 shrink-0 min-h-[2.25rem] line-clamp-2 font-body text-[12px] leading-relaxed text-ink/55">
                     <span className="text-ink/75">{item.learning}</span>
                   </p>
                 </div>

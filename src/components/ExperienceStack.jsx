@@ -26,6 +26,8 @@ const experienceCards = [
     body: "From blank canvas to client-ready products — AI systems, brand identity, and automation that actually move revenue. I lead strategy, ship the stack, and own the outcome.",
     tags: ["AI Products", "Branding", "Automation", "Leadership"],
     tone: "lemon",
+    logo: "/logos/experience/editco.webp",
+    logoAlt: "Editco Media",
   },
   {
     id: "02",
@@ -36,6 +38,9 @@ const experienceCards = [
     body: "React, Tailwind, REST, Supabase, Firebase — production UIs, AI-powered features, and clean deployments. Fast loops. Sharp debugging. Code that survives real users.",
     tags: ["React", "APIs", "AI Features", "Deploy"],
     tone: "white",
+    logo: "/logos/experience/mecntec.png",
+    logoAlt: "Mecntec",
+    logoWide: true,
   },
   {
     id: "03",
@@ -46,8 +51,47 @@ const experienceCards = [
     body: "Serving in Media Council and General Council — turning ideas into coordinated teams with communication, ownership, and momentum under pressure.",
     tags: ["Media Council", "General Council"],
     tone: "ink",
+    logos: [
+      { src: "/logos/experience/media-council.png", alt: "NIAT Media Council" },
+      { src: "/logos/experience/nsgc.png", alt: "NIET Student General Council" },
+    ],
   },
 ];
+
+function ExperienceLogo({ card }) {
+  if (card.logos?.length) {
+    return (
+      <div className="flex items-center gap-4">
+        {card.logos.map((logo) => (
+          <img
+            key={logo.src}
+            src={logo.src}
+            alt={logo.alt}
+            className="h-11 w-auto max-w-[4.75rem] rounded-md object-contain md:h-12 md:max-w-[5.5rem]"
+            draggable={false}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  if (card.logo) {
+    return (
+      <img
+        src={card.logo}
+        alt={card.logoAlt || card.org}
+        className={
+          card.logoWide
+            ? "h-10 w-auto max-w-[8.5rem] rounded-md object-contain md:h-11 md:max-w-[9.5rem]"
+            : "h-11 w-auto max-w-[4.75rem] rounded-md object-contain md:h-12 md:max-w-[5.25rem]"
+        }
+        draggable={false}
+      />
+    );
+  }
+
+  return null;
+}
 
 function cardClasses(tone) {
   if (tone === "lemon") {
@@ -76,12 +120,14 @@ function cardClasses(tone) {
 
 export default function ExperienceStack({
   children,
+  stack = null,
   about = null,
   wins = null,
 }) {
   const wrapRef = useRef(null);
   const stageRef = useRef(null);
   const nextRef = useRef(null);
+  const stackRef = useRef(null);
   const aboutRef = useRef(null);
   const winsRef = useRef(null);
   const progressRef = useRef(null);
@@ -93,6 +139,7 @@ export default function ExperienceStack({
       const wrap = wrapRef.current;
       const stage = stageRef.current;
       const next = nextRef.current;
+      const stackPanel = stackRef.current;
       const aboutPanel = aboutRef.current;
       const winsPanel = winsRef.current;
       const cards = gsap.utils.toArray(".exp-card");
@@ -103,12 +150,21 @@ export default function ExperienceStack({
       mm.add("(prefers-reduced-motion: reduce)", () => {
         gsap.set(cards, { clearProps: "all", x: 0 });
         if (next) gsap.set(next, { yPercent: 0 });
+        if (stackPanel) gsap.set(stackPanel, { yPercent: 0 });
         if (aboutPanel) gsap.set(aboutPanel, { yPercent: 0 });
         if (winsPanel) gsap.set(winsPanel, { yPercent: 0 });
       });
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
+        ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
+        gsap.ticker.lagSmoothing(0);
+
         const parkX = () => stage.offsetWidth + 48;
+
+        const setBarProgress = (el, value) => {
+          if (!el) return;
+          el.style.transform = `scaleX(${gsap.utils.clamp(0, 1, value)})`;
+        };
 
         gsap.set(cards[0], { x: 0, scale: 1, zIndex: 1, force3D: true });
         gsap.set(cards.slice(1), {
@@ -119,6 +175,7 @@ export default function ExperienceStack({
         });
 
         if (next) gsap.set(next, { yPercent: 100, force3D: true });
+        if (stackPanel) gsap.set(stackPanel, { yPercent: 100, force3D: true });
         if (aboutPanel) gsap.set(aboutPanel, { yPercent: 100, force3D: true });
         if (winsPanel) gsap.set(winsPanel, { yPercent: 100, force3D: true });
 
@@ -142,13 +199,15 @@ export default function ExperienceStack({
             trigger: wrap,
             start: "top top",
             end: "bottom bottom",
-            scrub: 0.95,
+            scrub: 1.12,
+            fastScrollEnd: true,
             invalidateOnRefresh: true,
             onRefresh: () => {
               if (tl.scrollTrigger?.progress === 0) {
                 gsap.set(cards[0], { x: 0, scale: 1 });
                 gsap.set(cards.slice(1), { x: parkX(), scale: 1 });
                 if (next) gsap.set(next, { yPercent: 100 });
+                if (stackPanel) gsap.set(stackPanel, { yPercent: 100 });
                 if (aboutPanel) gsap.set(aboutPanel, { yPercent: 100 });
                 if (winsPanel) {
                   gsap.set(winsPanel, { yPercent: 100 });
@@ -189,9 +248,7 @@ export default function ExperienceStack({
                 });
               }
 
-              if (progressRef.current) {
-                progressRef.current.style.transform = `scaleX(${Math.min(cardPhase, 1)})`;
-              }
+              setBarProgress(progressRef.current, cardPhase);
             },
           },
         });
@@ -249,6 +306,21 @@ export default function ExperienceStack({
 
         tl.addLabel("wik-up");
 
+        if (stackPanel) {
+          tl.addLabel("stack-start");
+          tl.to(
+            stackPanel,
+            {
+              yPercent: 0,
+              duration: 1.25,
+              ease: "none",
+            },
+            "wik-up+=0.35"
+          );
+          tl.to({}, { duration: 0.6 });
+          tl.addLabel("stack-up");
+        }
+
         if (aboutPanel) {
           tl.addLabel("about-stack");
           tl.to(
@@ -258,8 +330,7 @@ export default function ExperienceStack({
               duration: 1.55,
               ease: "none",
             },
-            // Tiny breath only — no long dead scroll on W'IK
-            "wik-up+=0.18"
+            stackPanel ? "stack-up+=0.2" : "wik-up+=0.18"
           );
           tl.addLabel("about-cover");
 
@@ -319,17 +390,23 @@ export default function ExperienceStack({
     },
     {
       scope: wrapRef,
-      dependencies: [Boolean(about), Boolean(children), Boolean(wins)],
+      dependencies: [Boolean(about), Boolean(children), Boolean(stack), Boolean(wins)],
     }
   );
 
   // Tall enough for all wins cards, short tail into Contact
   const stackHeight = wins
-    ? "2700vh"
+    ? stack
+      ? "3300vh"
+      : "3000vh"
     : about
-      ? "1400vh"
+      ? stack
+        ? "2200vh"
+        : "1400vh"
       : children
-        ? "360vh"
+        ? stack
+          ? "520vh"
+          : "360vh"
         : "220vh";
 
   return (
@@ -339,7 +416,7 @@ export default function ExperienceStack({
       className="relative z-[2]"
       style={{ height: stackHeight }}
     >
-      <div className="sticky top-0 h-screen overflow-hidden bg-ink">
+      <div className="sticky top-0 h-screen overflow-hidden bg-ink [contain:layout_paint]">
         <section className="absolute inset-0 z-[1] flex flex-col overflow-hidden bg-ink">
           <div
             className="pointer-events-none absolute -left-24 bottom-0 h-[320px] w-[320px] rounded-full bg-lemon/10 blur-[120px]"
@@ -399,7 +476,7 @@ export default function ExperienceStack({
             <div
               ref={stageRef}
               className="exp-stage relative w-full max-w-lg overflow-hidden rounded-[1.5rem] md:rounded-[2rem]"
-              style={{ height: "100%", maxHeight: "420px" }}
+              style={{ height: "100%", maxHeight: "min(380px, 52vh)" }}
             >
               {experienceCards.map((card, index) => {
                 const c = cardClasses(card.tone);
@@ -410,15 +487,9 @@ export default function ExperienceStack({
                     style={{ zIndex: index + 1 }}
                   >
                     <div className="flex items-start justify-between gap-3">
-                      <div
-                        className={`flex h-9 w-9 items-center justify-center rounded-full md:h-11 md:w-11 ${c.badge}`}
-                      >
-                        <span className="font-display text-xs font-bold md:text-sm">
-                          {card.id}
-                        </span>
-                      </div>
+                      <ExperienceLogo card={card} />
                       <span
-                        className={`pt-1 font-body text-[9px] uppercase tracking-[0.24em] md:text-[10px] ${c.muted}`}
+                        className={`shrink-0 pt-1 font-body text-[9px] uppercase tracking-[0.24em] md:text-[10px] ${c.muted}`}
                       >
                         {card.period}
                       </span>
@@ -461,19 +532,25 @@ export default function ExperienceStack({
           </div>
 
           <div className="relative z-10 mx-auto w-full max-w-7xl shrink-0 px-6 pb-5 pt-2 md:px-10 md:pb-6">
-            <div className="flex items-center gap-4">
-              <p className="shrink-0 font-body text-[9px] uppercase tracking-[0.28em] text-paper/35">
+            <div
+              className="flex items-center gap-4"
+              role="progressbar"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="Experience chapter progress"
+            >
+              <p className="shrink-0 font-body text-[9px] uppercase tracking-[0.28em] text-paper/40">
                 Scroll
               </p>
-              <div className="h-px flex-1 overflow-hidden bg-paper/10">
+              <div className="h-1 flex-1 overflow-hidden rounded-full bg-paper/10 md:h-1.5">
                 <div
                   ref={progressRef}
-                  className="h-full origin-left bg-lemon"
+                  className="h-full w-full origin-left rounded-full bg-lemon shadow-[0_0_12px_rgba(255,244,79,0.45)]"
                   style={{ transform: "scaleX(0)" }}
                 />
               </div>
-              <p className="shrink-0 font-body text-[9px] uppercase tracking-[0.28em] text-lemon">
-                03 chapters
+              <p className="shrink-0 font-body text-[9px] uppercase tracking-[0.28em] text-lemon/90">
+                03 cards
               </p>
             </div>
           </div>
@@ -487,6 +564,17 @@ export default function ExperienceStack({
             className="absolute inset-0 z-[5] overflow-hidden will-change-transform stack-panel"
           >
             {children}
+          </div>
+        ) : null}
+
+        {stack ? (
+          <div
+            ref={stackRef}
+            data-stack-panel
+            id="stack"
+            className="absolute inset-0 z-[6] overflow-hidden will-change-transform stack-panel"
+          >
+            {stack}
           </div>
         ) : null}
 
@@ -511,7 +599,6 @@ export default function ExperienceStack({
             {wins}
           </div>
         ) : null}
-
       </div>
     </div>
   );

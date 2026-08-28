@@ -260,6 +260,25 @@ const FallingText = ({
     Runner.run(runner, engine);
     Render.run(render);
 
+    let scrollPauseTimer = 0;
+    let scrollPaused = false;
+
+    const pauseForScroll = () => {
+      if (!scrollPaused) {
+        scrollPaused = true;
+        Runner.stop(runner);
+        Render.stop(render);
+      }
+      window.clearTimeout(scrollPauseTimer);
+      scrollPauseTimer = window.setTimeout(() => {
+        scrollPaused = false;
+        Runner.run(runner, engine);
+        Render.run(render);
+      }, 140);
+    };
+
+    window.addEventListener("scroll", pauseForScroll, { passive: true });
+
     // Soft readable tilt — stay dynamic so cards can still be dragged
     const settleTimer = window.setTimeout(() => {
       wordBodies.forEach(({ body }) => {
@@ -287,17 +306,21 @@ const FallingText = ({
     }, 1400);
 
     const sync = () => {
-      wordBodies.forEach(({ body, elem }) => {
-        const { x, y } = body.position;
-        elem.style.left = `${x}px`;
-        elem.style.top = `${y}px`;
-        elem.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad)`;
-      });
+      if (!scrollPaused) {
+        wordBodies.forEach(({ body, elem }) => {
+          const { x, y } = body.position;
+          elem.style.left = `${x}px`;
+          elem.style.top = `${y}px`;
+          elem.style.transform = `translate3d(-50%, -50%, 0) rotate(${body.angle}rad)`;
+        });
+      }
       rafRef.current = requestAnimationFrame(sync);
     };
     rafRef.current = requestAnimationFrame(sync);
 
     return () => {
+      window.removeEventListener("scroll", pauseForScroll);
+      window.clearTimeout(scrollPauseTimer);
       window.clearTimeout(settleTimer);
       cancelAnimationFrame(rafRef.current);
       if (mouseConstraint) {

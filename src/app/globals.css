@@ -12,7 +12,27 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* GSAP ScrollTrigger scrubs native scroll — smooth scroll fights it and causes stutter */
+  scroll-behavior: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.32);
 }
 
 body {
@@ -65,6 +85,13 @@ body {
 
 .stack-panel {
   box-shadow: 0 -24px 80px rgba(0, 0, 0, 0.55);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.exp-stage {
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .exp-card {
