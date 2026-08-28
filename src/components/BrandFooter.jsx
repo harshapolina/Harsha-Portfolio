@@ -178,12 +178,6 @@ export default function BrandFooter() {
 
         <div className="mx-5 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-ink/10 px-1 py-3.5 md:mx-10 lg:mx-14">
           <div className="flex items-center gap-4 font-body text-[10px] font-semibold uppercase tracking-[0.18em]">
-            <a href="#top" className="transition-opacity hover:opacity-55">
-              Privacy
-            </a>
-            <a href="#top" className="transition-opacity hover:opacity-55">
-              Terms
-            </a>
             <a
               href="#achievements"
               className="transition-opacity hover:opacity-55"
