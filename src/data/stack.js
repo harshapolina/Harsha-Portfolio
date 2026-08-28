@@ -51,7 +51,7 @@ export const stackCategories = [
     blurb: "Visuals that actually slap.",
     tone: "lemon",
     items: [
-      { label: "Graphic Design", icon: I.brand },
+      { label: "Webflow", icon: I.webflow },
       { label: "UI/UX Design", icon: I.ui },
       { label: "Canva", icon: I.canva },
       { label: "Adobe Photoshop", icon: I.photoshop },
@@ -71,7 +71,6 @@ export const stackCategories = [
       { label: "Vercel", icon: I.vercel },
       { label: "n8n", icon: I.n8n },
       { label: "Cursor", icon: I.cursor },
-      { label: "Webflow", icon: I.webflow },
       { label: "Automations", icon: I.zap },
     ],
   },

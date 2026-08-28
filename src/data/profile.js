@@ -49,7 +49,7 @@ export const profile = {
 
   coreSkills: [
     "Full Stack Development",
-    "Graphic Design",
+    "Webflow",
     "UI/UX Design",
     "AI Development",
     "Automation",
@@ -70,7 +70,7 @@ export const profile = {
 
   skills: {
     Design: [
-      "Graphic Design",
+      "Webflow",
       "UI/UX Design",
       "Canva",
       "Adobe Photoshop",
@@ -94,7 +94,6 @@ export const profile = {
       "n8n",
       "Git",
       "GitHub",
-      "Webflow",
       "WordPress",
       "Hugging Face",
       "Gemini API",
