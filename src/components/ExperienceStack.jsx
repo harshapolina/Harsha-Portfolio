@@ -133,13 +133,15 @@ export default function ExperienceStack({
         let lastActive = 0;
         let fallFired = false;
 
+        const cardEnter = 1.2;
+        const cardHold = 1.75;
+
         const tl = gsap.timeline({
-          defaults: { ease: "none", duration: 0.85 },
+          defaults: { ease: "none", duration: cardEnter },
           scrollTrigger: {
             trigger: wrap,
             start: "top top",
             end: "bottom bottom",
-            // Soft scrub = buttery catch-up (less stiff / “stuck” feel)
             scrub: 0.95,
             invalidateOnRefresh: true,
             onRefresh: () => {
@@ -159,8 +161,10 @@ export default function ExperienceStack({
               }
             },
             onUpdate: () => {
-              // Experience card UI tied to early timeline time only
-              const expEnd = Math.max((cards.length - 1) * 0.72 + 0.85, 1);
+              const expEnd = Math.max(
+                cardHold + (cards.length - 1) * (cardEnter + cardHold),
+                1
+              );
               const cardPhase = gsap.utils.clamp(0, 1, tl.time() / expEnd);
               const active = Math.min(
                 cards.length - 1,
@@ -192,10 +196,11 @@ export default function ExperienceStack({
           },
         });
 
+        // Hold on card 01 — time to read before the next slides in
+        tl.to({}, { duration: cardHold });
+
         cards.forEach((card, i) => {
           if (i === 0) return;
-          // Slight overlap so chapters don’t “land and wait”
-          const at = (i - 1) * 0.72;
           const peek = () => Math.min(32, stage.offsetWidth * 0.07);
 
           cards.slice(0, i).forEach((behind, bi) => {
@@ -205,22 +210,23 @@ export default function ExperienceStack({
               {
                 x: () => -peek() * depth,
                 scale: 1 - depth * 0.03,
-                duration: 0.85,
+                duration: cardEnter,
               },
-              at
+              ">"
             );
           });
 
           tl.fromTo(
             card,
             { x: parkX, scale: 1 },
-            { x: 0, scale: 1, duration: 0.85 },
-            at
+            { x: 0, scale: 1, duration: cardEnter },
+            "<"
           );
+
+          // Pause on each card so copy is readable before moving on
+          tl.to({}, { duration: cardHold });
         });
 
-        // Let the council card settle before the next section
-        tl.to({}, { duration: 0.85 });
         tl.addLabel("wik-start");
 
         if (next) {
@@ -319,7 +325,7 @@ export default function ExperienceStack({
 
   // Tall enough for all wins cards, short tail into Contact
   const stackHeight = wins
-    ? "2400vh"
+    ? "2700vh"
     : about
       ? "1400vh"
       : children
