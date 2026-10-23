@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { bravePress } from "../data/press";
+import { goHomeToSection } from "../lib/scrollToSection";
 
 function GridBg() {
   return (
@@ -53,8 +53,9 @@ export default function PressCoverage() {
       <GridBg />
 
       <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-6 py-6 md:px-10 md:py-8">
-        <Link
-          href="/#achievements"
+        <button
+          type="button"
+          onClick={() => goHomeToSection("press")}
           className="group flex items-center gap-2 font-body text-xs uppercase tracking-[0.2em] text-paper/60 transition-colors hover:text-lemon"
         >
           <span
@@ -63,8 +64,8 @@ export default function PressCoverage() {
           >
             ←
           </span>
-          Portfolio
-        </Link>
+          Back
+        </button>
         <span className="font-display text-xs font-bold uppercase tracking-[0.28em] text-lemon/80">
           {program}
         </span>
@@ -230,12 +231,13 @@ export default function PressCoverage() {
         </section>
 
         <footer className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-paper/10 pt-8">
-          <Link
-            href="/#achievements"
+          <button
+            type="button"
+            onClick={() => goHomeToSection("press")}
             className="inline-flex items-center gap-2 rounded-full border border-lemon/50 px-5 py-2.5 font-body text-xs uppercase tracking-[0.18em] text-lemon transition-colors hover:bg-lemon hover:text-ink"
           >
-            Back to Wins
-          </Link>
+            ← Back to Press
+          </button>
           <p className="font-body text-xs text-paper/35">
             BuildTrack · Editco Media · BRAVE 2026
           </p>

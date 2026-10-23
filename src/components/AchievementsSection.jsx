@@ -1,11 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { profile } from "../data/profile";
+import { scrollToSection } from "../lib/scrollToSection";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -246,15 +246,20 @@ function AchievementsStage() {
                     </span>
                     <div className="flex h-[26px] w-full items-center justify-center">
                       {item.pressHref && (
-                        <Link
-                          href={item.pressHref}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const id = item.pressHref.replace(/^#/, "");
+                            window.history.replaceState(null, "", `#${id}`);
+                            scrollToSection(id);
+                          }}
                           className="inline-flex items-center gap-1.5 rounded-full border border-ink/20 px-3 py-1 font-body text-[9px] uppercase tracking-[0.22em] text-ink/60 transition-all hover:border-ink/45 hover:bg-ink hover:text-lemon md:text-[10px]"
                         >
                           {item.pressLabel ?? "In the news"}
                           <span className="text-[10px] opacity-70" aria-hidden>
                             ↗
                           </span>
-                        </Link>
+                        </button>
                       )}
                     </div>
                   </div>

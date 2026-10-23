@@ -1,21 +1,31 @@
 "use client";
 
+import { useEffect } from "react";
 import TextPressure from "../components/TextPressure";
 import ExperienceStack from "../components/ExperienceStack";
 import WikSection from "../components/WikSection";
 import StackShowcase from "../components/StackShowcase";
 import { AboutSurface } from "../components/AboutSection";
 import { AchievementsSurface } from "../components/AchievementsSection";
+import PressSection from "../components/PressSection";
 import BrandFooter from "../components/BrandFooter";
 import { profile } from "../data/profile";
+import {
+  scrollToSection,
+  consumeHomeScrollTarget,
+  scrollHomeTargetWhenReady,
+} from "../lib/scrollToSection";
 
 const navLinks = [
   { href: "#experience", label: "Experience" },
   { href: "#wik", label: "W'IK?" },
   { href: "#about", label: "About" },
   { href: "#achievements", label: "Wins" },
+  { href: "#press", label: "Press" },
   { href: "#contact", label: "Contact" },
 ];
+
+const hashNavIds = new Set(["press", "contact", "top"]);
 
 function GridBg() {
   return (
@@ -31,12 +41,32 @@ function GridBg() {
   );
 }
 
+function handleHashNav(event, href) {
+  const id = href.replace("#", "");
+  if (!hashNavIds.has(id)) return;
+  event.preventDefault();
+  window.history.replaceState(null, "", href);
+  scrollToSection(id, { behavior: "smooth" });
+}
+
 export default function Home() {
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    const target = consumeHomeScrollTarget();
+    if (!target || !hashNavIds.has(target)) return;
+
+    return scrollHomeTargetWhenReady(target);
+  }, []);
+
   return (
     <main className="bg-ink text-paper">
       <nav className="fixed inset-x-0 top-0 z-[100] flex items-center justify-between px-6 py-5 md:px-10">
         <a
           href="#top"
+          onClick={(e) => handleHashNav(e, "#top")}
           className="font-display text-sm font-bold tracking-[0.2em] text-paper transition-colors hover:text-lemon"
         >
           HARSHA
@@ -46,6 +76,7 @@ export default function Home() {
             <a
               key={link.href}
               href={link.href}
+              onClick={(e) => handleHashNav(e, link.href)}
               className="transition-colors hover:text-lemon"
             >
               {link.label}
@@ -54,6 +85,7 @@ export default function Home() {
         </div>
         <a
           href="#contact"
+          onClick={(e) => handleHashNav(e, "#contact")}
           className="border border-lemon/60 px-4 py-2 font-body text-xs uppercase tracking-[0.2em] text-lemon transition-colors hover:bg-lemon hover:text-ink"
         >
           Contact
@@ -105,6 +137,7 @@ export default function Home() {
         </ExperienceStack>
       </div>
 
+      <PressSection />
       <BrandFooter />
     </main>
   );

@@ -1,9 +1,9 @@
 export const bravePress = {
   program: "BRAVE 2026",
   product: "BuildTrack",
-  headline: "Featured in press.",
+  headline: "The clippings. The stage. The receipts.",
   subline:
-    "NIAT TakeOver 2026 — AI construction intelligence that earned national coverage, jury praise from Mivi & Sid's Farm founders, and an international industry learning trip.",
+    "NIAT TakeOver 2026 — BuildTrack earned national coverage, jury praise from Mivi & Sid's Farm founders, and an international industry learning trip.",
   stats: [
     { label: "Revenue", value: "₹15.5L+" },
     { label: "Active users", value: "120+" },

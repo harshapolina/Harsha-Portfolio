@@ -201,7 +201,7 @@ export const profile = {
       line: "13 weeks of validation, pitching, and real growth — Editco came out on top.",
       chips: ["₹15.5L+", "1st Place", "Product shift"],
       learning: "Build it. Position it. Then it hits.",
-      pressHref: "/press",
+      pressHref: "#press",
       pressLabel: "In the news",
     },
     {
