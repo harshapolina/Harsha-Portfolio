@@ -1,3 +1,5 @@
+import { projects as projectLibrary } from "./projects";
+
 export const profile = {
   name: "Harsha Polina",
   fullName: "Harsha Venkata Sai Polina",
@@ -111,77 +113,12 @@ export const profile = {
     "AI Workflow Automation",
   ],
 
-  projects: [
-    {
-      title: "BuildTrack",
-      tag: "Construction",
-      blurb: "Construction cost intelligence platform.",
-      features: [
-        "Budget Planning",
-        "Material Tracking",
-        "Procurement",
-        "Cost Leakage Detection",
-        "Reports & Analytics",
-      ],
-    },
-    {
-      title: "EasyMove",
-      tag: "Healthcare",
-      blurb: "Physiotherapy management platform.",
-      features: [
-        "Exercise Management",
-        "QR Code Generation",
-        "Patient Dashboard",
-      ],
-    },
-    {
-      title: "Healthcare AI",
-      tag: "AI",
-      blurb: "Medical AI assistant platform.",
-      features: [
-        "Prescription Upload",
-        "AI Assistant",
-        "Medical Reports",
-        "X-ray Analysis",
-      ],
-    },
-    {
-      title: "HRMS",
-      tag: "Business",
-      blurb: "Human resource management system.",
-      features: [
-        "Attendance",
-        "Live Location Tracking",
-        "Employee Dashboard",
-        "Firebase Integration",
-      ],
-    },
-    {
-      title: "Connect Pro",
-      tag: "Social",
-      blurb: "Professional networking platform.",
-      features: [],
-    },
-    {
-      title: "HackOrbit",
-      tag: "Events",
-      blurb: "Hackathon management platform.",
-      features: [],
-    },
-    {
-      title: "AI Cricket Commentary",
-      tag: "Sports + AI",
-      blurb:
-        "Live IPL commentary with multiple styles, scores, and light/dark mode.",
-      features: [],
-    },
-    {
-      title: "Editco Media",
-      tag: "Agency",
-      blurb: "Agency site showcasing services, products, and branding.",
-      features: [],
-    },
-  ],
+  projects: projectLibrary.map(({ title, tag, blurb, features }) => ({
+    title,
+    tag,
+    blurb,
+    features: features || [],
+  })),
 
   achievements: [
     "Founded Editco Media",

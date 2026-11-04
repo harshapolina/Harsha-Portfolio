@@ -99,11 +99,12 @@ export default function PressSection() {
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute left-1/2 top-0 h-px w-[min(72%,42rem)] -translate-x-1/2 bg-gradient-to-r from-transparent via-lemon/50 to-transparent"
+        className="pointer-events-none absolute left-1/2 top-0 h-px w-[min(88%,72rem)] -translate-x-1/2 bg-gradient-to-r from-transparent via-lemon/50 to-transparent"
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-28 lg:py-32">
+      {/* Same content width as Experience / GTM / Contact */}
+      <div className="relative mx-auto w-full max-w-7xl px-6 py-20 md:px-10 md:py-28 lg:py-32">
         <div className="max-w-3xl">
           <span
             data-press-reveal
@@ -142,7 +143,7 @@ export default function PressSection() {
 
         <div
           data-press-reveal
-          className="mt-10 flex flex-wrap gap-3 md:mt-12 md:gap-3.5"
+          className="mt-10 grid w-full grid-cols-2 gap-3 sm:grid-cols-3 md:mt-12 md:gap-4 lg:grid-cols-5"
         >
           {outlets.map((outlet) => (
             <a
@@ -151,14 +152,14 @@ export default function PressSection() {
               target="_blank"
               rel="noopener noreferrer"
               title={outlet.name}
-              className={`group flex h-[3.4rem] w-[9.25rem] items-center justify-center overflow-hidden rounded-xl px-3 transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(255,244,79,0.18)] md:h-[3.75rem] md:w-[10.5rem] md:rounded-2xl md:px-4 ${
+              className={`group flex h-14 w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl px-3 transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(255,244,79,0.18)] md:h-16 md:rounded-2xl md:px-4 ${
                 outlet.tone === "dark" ? "bg-[#1a1a1a]" : "bg-paper"
               }`}
             >
               <img
                 src={outlet.logo}
                 alt={outlet.name}
-                className="max-h-[70%] max-w-[88%] object-contain"
+                className="max-h-[68%] max-w-[90%] object-contain"
                 draggable={false}
               />
             </a>
@@ -167,7 +168,7 @@ export default function PressSection() {
 
         <div
           data-press-frame
-          className="relative mt-10 overflow-hidden rounded-sm border-[3px] border-lemon md:mt-14 md:border-4"
+          className="relative mt-10 w-full overflow-hidden rounded-sm border-[3px] border-lemon md:mt-14 md:border-4"
         >
           <div className="relative aspect-[16/9] w-full md:aspect-[2.05/1]">
             <img
@@ -181,7 +182,7 @@ export default function PressSection() {
 
         <div
           data-press-reveal
-          className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-lemon/40 pt-6"
+          className="mt-8 flex w-full flex-wrap items-center justify-between gap-4 border-t border-lemon/40 pt-6"
         >
           <p className="font-body text-[10px] uppercase tracking-[0.24em] text-paper/40">
             {bravePress.program}
@@ -190,7 +191,7 @@ export default function PressSection() {
           </p>
           <Link
             href="/press"
-            className="inline-flex items-center gap-2 font-body text-[10px] uppercase tracking-[0.22em] text-lemon transition-colors hover:text-paper md:text-xs"
+            className="inline-flex cursor-pointer items-center gap-2 font-body text-[10px] uppercase tracking-[0.22em] text-lemon transition-colors hover:text-paper md:text-xs"
           >
             Read every clipping
             <span aria-hidden>→</span>

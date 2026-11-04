@@ -7,7 +7,9 @@ import WikSection from "../components/WikSection";
 import StackShowcase from "../components/StackShowcase";
 import { AboutSurface } from "../components/AboutSection";
 import { AchievementsSurface } from "../components/AchievementsSection";
+import WorkSection from "../components/WorkSection";
 import PressSection from "../components/PressSection";
+import GtmSection from "../components/GtmSection";
 import BrandFooter from "../components/BrandFooter";
 import { profile } from "../data/profile";
 import {
@@ -21,11 +23,13 @@ const navLinks = [
   { href: "#wik", label: "W'IK?" },
   { href: "#about", label: "About" },
   { href: "#achievements", label: "Wins" },
+  { href: "#work", label: "Work" },
   { href: "#press", label: "Press" },
+  { href: "#gtm", label: "GTM" },
   { href: "#contact", label: "Contact" },
 ];
 
-const hashNavIds = new Set(["press", "contact", "top"]);
+const hashNavIds = new Set(["work", "press", "gtm", "contact", "top"]);
 
 function GridBg() {
   return (
@@ -137,7 +141,9 @@ export default function Home() {
         </ExperienceStack>
       </div>
 
+      <WorkSection />
       <PressSection />
+      <GtmSection />
       <BrandFooter />
     </main>
   );
